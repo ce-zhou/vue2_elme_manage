@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import md5 from 'js-md5'
 export default {
   name: "Login",
   data () {
@@ -74,13 +75,16 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        const {data: res} = await this.$http.post('/admin/login', {
-          user_name: this.loginForm.username,
-          password: this.loginForm.password
+        const {data: res} = await this.$http.post('/adminUser/login', {
+          userName: this.loginForm.username,
+          passwordMd5: md5(this.loginForm.password)
         })
-        if (res.status !== 1) return this.$message.error('登陆失败')
-        return this.$message.success('登陆成功')
+        console.log(res);
+        if (res.resultCode !== 200) return this.$message.error('登陆失败')
+        // 登陆成功，将返回的token保存到本地
+        window.sessionStorage.setItem("token", res.data)
         this.$router.push('/home')
+        return this.$message.success('登陆成功')
       })
     }
   }
