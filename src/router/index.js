@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router'
-import Login from '../components/Login.vue'
-import Home from '../components/Home.vue'
-import Welcome from '../components/Welcome.vue'
+import Login from '../pages/Login.vue'
+import Home from '../pages/Home.vue'
+import Welcome from '../pages/Welcome.vue'
+import Swiper from '../pages/home_page/Swiper.vue'
+import IndexConfig from '../pages/home_page/IndexConfig.vue'
 
 const router = new VueRouter({
     routes:[
@@ -18,6 +20,25 @@ const router = new VueRouter({
                 {
                     path: '/welcome',
                     component: Welcome
+                },
+                {
+                    path: '/swiper',
+                    component: Swiper
+                },
+                {
+                    path: '/hot',
+                    name: 'hot',
+                    component: IndexConfig
+                },
+                {
+                    path: '/new',
+                    name: 'new',
+                    component: IndexConfig
+                },
+                {
+                    path: '/recommend',
+                    name: 'recommend',
+                    component: IndexConfig
                 }
             ]
         },

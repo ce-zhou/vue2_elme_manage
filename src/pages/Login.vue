@@ -79,7 +79,6 @@ export default {
           userName: this.loginForm.username,
           passwordMd5: md5(this.loginForm.password)
         })
-        console.log(res);
         if (res.resultCode !== 200) return this.$message.error('登陆失败')
         // 登陆成功，将返回的token保存到本地
         window.sessionStorage.setItem("token", res.data)
