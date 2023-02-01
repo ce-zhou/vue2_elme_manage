@@ -4,6 +4,12 @@ import Home from '../pages/Home.vue'
 import Welcome from '../pages/Welcome.vue'
 import Swiper from '../pages/home_page/Swiper.vue'
 import IndexConfig from '../pages/home_page/IndexConfig.vue'
+import Category from '../pages/module/Category.vue'
+import Good from '../pages/module/Good.vue'
+import AddGood from '../pages/module/AddGood.vue'
+import Guest from '../pages/module/Guest.vue'
+import Order from '../pages/module/Order.vue'
+import OrderDetail from '../pages/module/OrderDetail.vue'
 
 const router = new VueRouter({
     routes:[
@@ -39,6 +45,43 @@ const router = new VueRouter({
                     path: '/recommend',
                     name: 'recommend',
                     component: IndexConfig
+                },
+                {
+                    path: '/category',
+                    name: 'category',
+                    component: Category,
+                    children: [
+                        {
+                            path:'/category/level2',
+                            name: 'level2',
+                            component: Category
+                        },
+                        {
+                            path:'/category/level3',
+                            name: 'level3',
+                            component: Category
+                        },
+                    ]
+                },
+                {
+                    path: '/good',
+                    component: Good
+                },
+                {
+                    path: '/add',
+                    component: AddGood
+                },
+                {
+                    path: '/guest',
+                    component: Guest
+                },
+                {
+                    path: '/order',
+                    component: Order,
+                },
+                {
+                    path: '/order_detail',
+                    component: OrderDetail
                 }
             ]
         },

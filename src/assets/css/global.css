@@ -1,14 +1,17 @@
 html,
 body,
 .app {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 .el-breadcrumb {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 .el-pagination {
-    text-align: center;
-    margin-top: 15px;
+  text-align: center;
+  margin-top: 15px;
+}
+.el-scrollbar__wrap {
+  height: 200px;
 }
