@@ -1,0 +1,44 @@
+{
+  "id": "3877259",
+  "name": "manage",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "5203322",
+      "name": "圆圈",
+      "font_class": "yuanquan",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "774517",
+      "name": "系统",
+      "font_class": "xitong",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "1177734",
+      "name": "首页-首页",
+      "font_class": "shouyeshouye",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "5062044",
+      "name": "模块管理",
+      "font_class": "mokuaiguanli",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "9927128",
+      "name": "setting",
+      "font_class": "setting",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    }
+  ]
+}

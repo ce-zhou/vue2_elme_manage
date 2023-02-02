@@ -75,11 +75,11 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        const {data: res} = await this.$http.post('/adminUser/login', {
+        let data =  {
           userName: this.loginForm.username,
           passwordMd5: md5(this.loginForm.password)
-        })
-        if (res.resultCode !== 200) return this.$message.error('登陆失败')
+        }
+        const res = await this.$http.login.login(data)
         // 登陆成功，将返回的token保存到本地
         window.sessionStorage.setItem("token", res.data)
         this.$router.push('/home')

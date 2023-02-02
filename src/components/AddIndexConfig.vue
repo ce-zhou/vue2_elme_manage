@@ -76,9 +76,8 @@ export default {
   methods: {
     // 获取修改对话框表单的数据
     async getEditDialog(id) {
-      const {data:res} = await this.$http.get(`/indexConfigs/${id}`)
+      const res = await this.$http.index.getEditDialog(id)
       // console.log(res);
-      if (res.resultCode !== 200) return this.$message.error('获取修改数据失败')
       this.ruleForm.configName = res.data.configName
       this.ruleForm.configRank = res.data.configRank
       this.ruleForm.goodsId = res.data.goodsId
@@ -98,23 +97,21 @@ export default {
           return;
         }
         if (this.type === "add") {
-          const {data: res} = await this.$http.post('/indexConfigs', {
+          let data = {
             ...this.ruleForm,
             configType: this.configType
-          });
-          console.log(res);
-          if (res.resultCode !== 200) return this.$message.error(res.message)
+          }
+          await this.$http.index.getIndex(data);
           this.reload()
           this.addDialogVisible = false
           this.$message.success('添加商品成功')
         } else {
-          const {data: res} = await this.$http.put('/indexConfigs', {
+          let data = {
             ...this.ruleForm,
             configId: this.id,
             configType: this.configType
-          });
-          console.log(res);
-          if (res.resultCode !== 200) return this.$message.error('修改数据失败')
+          }
+          await this.$http.index.getIndexEdit(data)
           this.reload();
           this.addDialogVisible = false;
           this.$message.success('修改数据成功')

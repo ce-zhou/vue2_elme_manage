@@ -64,10 +64,7 @@ export default {
   methods: {
     // 获取修改对话框表单的数据
     async getCategoryDialog(id) {
-      const { data: res } = await this.$http.get(`/categories/${id}`);
-      // console.log(res);
-      if (res.resultCode !== 200)
-        return this.$message.error("获取修改数据失败");
+      const res = await this.$http.cate.getCategoryDialog(id)
       this.ruleForm.categoryName = res.data.categoryName;
       this.ruleForm.categoryRank = res.data.categoryRank;
       this.id = res.data.categoryId;
@@ -81,26 +78,23 @@ export default {
       this.$refs.ruleFormRef.validate(async (valid) => {
         if (!valid) return;
         if (this.type === "add") {
-          const { data: res } = await this.$http.post('/categories', {
+          let data = {
             ...this.ruleForm,
             categoryLevel: this.categoryLevel,
             parentId: this.parentId
-          });
-        //   console.log(res);
-          if (res.resultCode !== 200) return this.$message.error(res.message);
+          }
+          await this.$http.cate.getCategory(data)
           this.reload();
           this.addDialogVisible = false;
           this.$message.success("添加商品成功");
         } else {
-          const { data: res } = await this.$http.put("/categories", {
+          let data = {
             ...this.ruleForm,
             categoryLevel: this.categoryLevel,
             parentId: this.parentId,
             categoryId: this.id
-          });
-        //   console.log(res);
-          if (res.resultCode !== 200)
-            return this.$message.error("修改数据失败");
+          }
+          await this.$http.cate.getCategoryEdit(data)
           this.reload();
           this.addDialogVisible = false;
           this.$message.success("修改数据成功");

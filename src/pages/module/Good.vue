@@ -72,11 +72,9 @@ export default {
   methods: {
     // 获取表格数据
     async getGoodList() {
-      const { data: res } = await this.$http.get("/goods/list", {
+      const res = await this.$http.good.getGoodList({
         params: this.queryInfo,
-      });
-      //   console.log(res);
-      if (res.resultCode !== 200) return this.$message.error("获取数据失败");
+      })
       this.goodList = res.data.list;
       this.total = res.data.totalCount;
     },
@@ -86,10 +84,9 @@ export default {
       this.getGoodList();
     },
     async handleStatus(id, status) {
-        const {data: res} = await this.$http.put(`/goods/status/${status}`, {
+        const res = await this.$http.good.handleStatus(status,{
             ids: id ? [id] : []
         })
-        if (res.resultCode !== 200) return this.$message.error(res.message)
         this.$message.success(res.message)
         this.getGoodList()
     },

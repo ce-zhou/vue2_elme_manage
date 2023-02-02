@@ -90,11 +90,9 @@ export default {
       const { level = 1, parent_id = 0 } = this.$route.query
       this.queryInfo.categoryLevel = level
       this.queryInfo.parentId = parent_id
-      const { data: res } = await this.$http.get("/categories", {
+      const res = await this.$http.cate.getCategoryList({
         params: this.queryInfo,
-      });
-      console.log(this);
-      if (res.resultCode !== 200) return this.$message.error("获取列表失败");
+      })
       this.categoryList = res.data.list;
       this.total = res.data.totalCount;
     },
@@ -122,8 +120,7 @@ export default {
         type: "warning",
       })
         .then(async () => {
-          /* const { data: res } = await this.$http.delete(`'/categories'/${id}`);
-          if (res.resultCode !== 200) return this.$message.error("删除失败");
+          /* await this.$http.cate.deleteCategory({ids: [id]})
           this.getSwiperList();
           this.$message.success("删除成功"); */
           this.$message.error("后端接口没完成此项功能");

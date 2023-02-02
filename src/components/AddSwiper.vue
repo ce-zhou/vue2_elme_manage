@@ -80,10 +80,7 @@ export default {
   methods: {
     // 获取修改表单的数据
     async getEditData(id) {
-      const { data: res } = await this.$http.get(`/carousels/${id}`);
-      // console.log(res);
-      if (res.resultCode !== 200)
-        return this.$message.error("获取此行数据失败");
+      const res = await this.$http.swiper.getEditData(id)
       this.swiperForm.url = res.data.carouselUrl;
       this.swiperForm.link = res.data.redirectUrl;
       this.swiperForm.sort = res.data.carouselRank;
@@ -112,26 +109,23 @@ export default {
       this.$refs.swiperFormRef.validate(async (valid) => {
         if (!valid) return;
         if (this.type === "add") {
-          const { data: res } = await this.$http.post("/carousels", {
+          let data = {
             carouselUrl: this.swiperForm.url,
             redirectUrl: this.swiperForm.link,
             carouselRank: this.swiperForm.sort,
-          });
-          // console.log(res);
-          if (res.resultCode !== 200)
-            return this.$message.error("添加表单失败");
+          }
+          await this.$http.swiper.submitForm(data);
           this.reload();
           this.addDialogVisible = false;
           this.$message.success("添加表单成功");
         } else {
-          const {data: res} = await this.$http.put("/carousels", {
+          let data = {
             carouselId: this.id,
             carouselUrl: this.swiperForm.url,
             redirectUrl: this.swiperForm.link,
             carouselRank: this.swiperForm.sort,
-          });
-          // console.log(res);
-          if (res.resultCode !== 200) return this.$message.error('修改数据失败')
+          }
+          await this.$http.swiper.submitFormEdit(data)
           this.reload();
           this.addDialogVisible = false;
           this.$message.success('修改数据成功')

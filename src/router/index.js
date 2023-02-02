@@ -10,6 +10,7 @@ import AddGood from '../pages/module/AddGood.vue'
 import Guest from '../pages/module/Guest.vue'
 import Order from '../pages/module/Order.vue'
 import OrderDetail from '../pages/module/OrderDetail.vue'
+import Account from '../pages/system/Account.vue'
 
 const router = new VueRouter({
     routes:[
@@ -82,6 +83,10 @@ const router = new VueRouter({
                 {
                     path: '/order_detail',
                     component: OrderDetail
+                },
+                {
+                    path: '/account',
+                    component: Account
                 }
             ]
         },

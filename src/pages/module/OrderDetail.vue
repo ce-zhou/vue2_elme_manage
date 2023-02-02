@@ -77,9 +77,8 @@ export default {
   },
   methods: {
     async getOrderDetail() {
-      const { data: res } = await this.$http.get(`/orders/${this.id}`);
-      console.log(res);
-      if (res.resultCode !== 200) this.$message.error(res.message);
+      let id = this.id
+      const res = await this.$http.order.getOrderDetail(id)
       this.orderDetailList = res.data;
       this.tableList = res.data.newBeeMallOrderItemVOS
     },

@@ -35,7 +35,8 @@ import {
     Col,
     Select,
     Option,
-    Divider
+    Divider,
+    Statistic
 } from 'element-ui'
 
 Vue.use(Form)
@@ -72,6 +73,7 @@ Vue.use(Col)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Divider)
+Vue.use(Statistic)
 
 Vue.prototype.$confirm = MessageBox
 Vue.prototype.$message = Message

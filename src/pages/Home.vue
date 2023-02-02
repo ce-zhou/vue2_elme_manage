@@ -18,7 +18,10 @@
           unique-opened
         >
           <el-menu-item index="/welcome" @click="setNavState('/welcome')">
-            <span>首页</span>
+            <template>
+              <i class="iconfont icon-shouyeshouye"></i>
+              <span style="margin-left: 5px">首页</span>
+            </template>
           </el-menu-item>
           <el-submenu
             :index="item.id.toString()"
@@ -26,7 +29,8 @@
             :key="item.id"
           >
             <template slot="title">
-              <span>{{ item.authName }}</span>
+              <i :class="item.icon"></i>
+              <span style="margin-left: 5px">{{ item.authName }}</span>
             </template>
             <el-menu-item
               :index="subItem.path"
@@ -35,8 +39,8 @@
               @click="setNavState(`${subItem.path}`)"
             >
               <template slot="title">
-                <i class="el-icon-menu"></i>
-                <span>{{ subItem.authName }}</span>
+                <i class="iconfont icon-yuanquan"></i>
+                <span style="margin-left: 5px">{{ subItem.authName }}</span>
               </template>
             </el-menu-item>
           </el-submenu>
@@ -53,8 +57,10 @@
             <el-avatar
               src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
             ></el-avatar>
-            <el-dropdown-menu slot="dropdown">
-              <el-button type="primary" size="mini" @click="logOut">退出</el-button>
+            <el-dropdown-menu slot="dropdown" class="drop-menu">
+              <div class="admin">管理员: admin</div>
+              <div class="nicheng">昵称: 十三</div>
+              <el-tag type="primary" class="tag" size="small" @click="logOut">退出</el-tag>
             </el-dropdown-menu>
           </el-dropdown>
         </el-header>
@@ -145,5 +151,29 @@ export default {
 .el-avatar {
   width: 45px;
   height: 45px;
+}
+.drop-menu {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  background-color: #3c5da5;
+  color: #fff;
+  font-weight: 700;
+  .tag {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  .admin {
+    position: absolute;
+    left: 10px;
+    top: 10px
+  }
+  .nicheng {
+    position: absolute;
+    left: 10px;
+    top: 50px
+  }
 }
 </style>

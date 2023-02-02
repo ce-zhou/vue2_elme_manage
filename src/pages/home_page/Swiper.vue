@@ -88,12 +88,8 @@ export default {
   methods: {
     // 获取轮播图表单数据
     async getSwiperList() {
-      const { data: res } = await this.$http.get("/carousels", {
-        params: this.queryInfo,
-      });
-      // console.log(res);
-      if (res.resultCode !== 200)
-        return this.$message.error("获取轮播图数据失败");
+      let params = this.queryInfo;
+      const res = await this.$http.swiper.getSwiperList({ params });
       this.swiperList = res.data.list;
       this.total = res.data.totalCount;
     },
@@ -119,12 +115,14 @@ export default {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning",
-      }).then(async () => {
-          /* const { data: res } = await this.$http.delete(`'/carousels'/${id}`);
-          if (res.resultCode !== 200) return this.$message.error("删除失败");
+      })
+        .then(async () => {
+          /* await this.$http.swiper.deleteData({
+            ids: [id],
+          });
           this.getSwiperList();
           this.$message.success("删除成功"); */
-          this.$message.error('后端接口没完成此项功能')
+          this.$message.error("后端接口没完成此项功能");
         })
         .catch(() => {
           this.$message({

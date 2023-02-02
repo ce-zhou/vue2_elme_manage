@@ -155,10 +155,9 @@ export default {
   methods: {
     // 获取订单数据
     async getOrderList() {
-      const { data: res } = await this.$http.get("/orders", {
+      const res = await this.$http.order.getOrderList({
         params: this.queryInfo,
-      });
-      if (res.resultCode !== 200) return this.$message.error("获取数据失败");
+      })
       this.orderList = res.data.list;
       this.total = res.data.totalCount;
     },
@@ -180,11 +179,9 @@ export default {
       if (this.multipleSelection.length == 0) {
         this.$message.error("请选择多选项");
       } else {
-        const { data: res } = await this.$http.put("/orders/checkDone", {
+        await this.$http.order.handleConfig({
           ids: this.multipleSelection.map((item) => item.orderId),
-        });
-        // console.log(res);
-        if (res.resultCode !== 200) this.$message.error(res.message);
+        })
         this.$message.success("配货成功");
         this.getOrderList();
       }
@@ -194,11 +191,9 @@ export default {
       if (this.multipleSelection.length == 0) {
         this.$message.error("请选择多选项");
       } else {
-        const { data: res } = await this.$http.put("/orders/checkOut", {
+        await this.$http.order.handleSend({
           ids: this.multipleSelection.map((item) => item.orderId),
-        });
-        // console.log(res);
-        if (res.resultCode !== 200) this.$message.error(res.message);
+        })
         this.$message.success("出库成功");
         this.getOrderList();
       }
@@ -208,14 +203,11 @@ export default {
       if (this.multipleSelection.length == 0) {
         this.$message.error("请选择多选项");
       } else {
-        /* const { data: res } = await this.$http.put("/orders/close", {
+        await this.$http.order.handleClose({
           ids: this.multipleSelection.map((item) => item.orderId),
-        });
-        // console.log(res);
-        if (res.resultCode !== 200) this.$message.error(res.message);
+        })
         this.$message.success("关闭成功");
-        this.getOrderList(); */
-        this.$message.error('后端未搭建环境')
+        this.getOrderList()
       }
     },
     // 关闭订单(单选)

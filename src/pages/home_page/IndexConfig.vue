@@ -90,11 +90,9 @@ export default {
   methods: {
     // 获取当前页面数据
     async getIndexConfig() {
-      const { data: res } = await this.$http.get("/indexConfigs", {
-        params: this.queryInfo,
-      });
+      let params = this.queryInfo
+      const res = await this.$http.index.getIndexConfig({params});
       // console.log(res);
-      if (res.resultCode !== 200) return this.$message.error("获取数据失败");
       this.indexConfigList = res.data.list;
       this.total = res.data.totalCount;
     },
@@ -121,16 +119,15 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(async () => {
-          /* const { data: res } = await this.$http.delete(`'/indexConfigs'/${id}`);
-          if (res.resultCode !== 200) return this.$message.error("删除失败");
+          /* await this.$http.index.deleteData({ids: [id]})
           this.getSwiperList();
-          this.$message.success("删除成功"); */
-          this.$message.error('后端接口没完成此项功能')
+          this.$message.success("删除成功") */
+          this.$message.error('后台未配置此项功能')
         })
         .catch(() => {
           this.$message({
-            type: "info",
-            message: "已取消删除",
+            type: "error",
+            message: "后台未配置此项功能",
           });
         });
     },

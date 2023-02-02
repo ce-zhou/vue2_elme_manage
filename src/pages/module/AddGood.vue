@@ -99,9 +99,7 @@
           <div ref="editor"></div>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')"
-            >立即创建</el-button
-          >
+          <el-button type="primary" @click="submitForm()">立即创建</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -152,8 +150,8 @@ export default {
         lazyLoad: (node, resolve) => {
           // console.log(this);
           const { level = 0, value } = node;
-          this.$http
-            .get("/categories", {
+          this.$http.good
+            .lazyLoad({
               params: {
                 pageNumber: 1,
                 pageSize: 1000,
@@ -162,7 +160,7 @@ export default {
               },
             })
             .then((res) => {
-              const list = res.data.data.list;
+              const list = res.data.list;
               // console.log(res);
               const nodes = list.map((item) => ({
                 value: item.categoryId,
@@ -177,7 +175,7 @@ export default {
   },
   methods: {
     handleChange(val) {
-      this.categoryId = val[2] || 0
+      this.categoryId = val[2] || 0;
     },
     // 处理上传前的文件
     beforeAvatarUpload(file) {
@@ -195,15 +193,14 @@ export default {
     },
     // 重置表单
     resetForm() {
-      this.$refs.ruleFormRef.resetFields()
+      this.$refs.ruleFormRef.resetFields();
     },
     // 提交表单
     submitForm() {
       this.$refs.ruleFormRef.validate(async (valid) => {
         if (!valid) return;
         // 默认新增用 post 方法
-        let ajax = this.$http.post;
-        let params = {
+        let data = {
           goodsCategoryId: this.categoryId,
           goodsCoverImg: this.ruleForm.goodsCoverImg,
           goodsDetailContent: this.ed.txt.html(),
@@ -215,19 +212,20 @@ export default {
           stockNum: this.ruleForm.stockNum,
           tag: this.ruleForm.tag,
         };
+
+        await this.$http.good.submitForm(data)
+
         if (this.id) {
-          params.goodsId = this.id
-          ajax = this.$http.put
+          data.goodsId = this.id;
+          await this.$http.good.submitFormEdit(data);
         }
-        const {data: res} = await ajax('/goods', params)
-        if (res.resultCode !== 200) return this.$message.error(id ? '修改失败' : '添加失败')
-        this.$message.success(this.id ? '修改成功' : '添加成功')
-        this.$router.push('/good')
+        this.$message.success(this.id ? "修改成功" : "添加成功");
+        this.$router.push("/good");
       });
     },
   },
   mounted() {
-    const ed = new editor(this.$refs.editor)
+    const ed = new editor(this.$refs.editor);
     this.ed = ed;
     ed.config.showLinkImg = false;
     ed.config.showLinkImgAlt = false;
@@ -254,9 +252,9 @@ export default {
       "http://backend-api-02.newbee.ltd/manage-api/v1/upload/files";
     ed.create();
     if (this.id) {
-      // console.log(this);
-      this.$http.get(`/goods/${this.id}`).then((response) => {
-        const res = response.data.data;
+      let id = this.id;
+      this.$http.good.edit(id).then((response) => {
+        const res = response.data;
         const { goods, firstCategory, secondCategory, thirdCategory } = res;
         this.ruleForm = {
           goodsName: goods.goodsName,

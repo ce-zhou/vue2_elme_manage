@@ -67,11 +67,9 @@ export default {
   methods: {
     // 获取会员数据
     async getGuestList() {
-      const { data: res } = await this.$http.get("/users", {
+      const res = await this.$http.guest.getGuestList({
         params: this.queryInfo,
-      });
-      //   console.log(res);
-      if (res.resultCode !== 200) return this.$message.error("获取数据失败");
+      })
       this.guestList = res.data.list;
       this.total = res.data.total;
     },
@@ -80,10 +78,9 @@ export default {
         if (this.multipleSelection.length === 0) {
             this.$message.error('请选择多选项')
         } else {
-            const {data:res} = await this.$http.put('/users/0', {
+            await this.$http.guest.handleSolve({
                 ids: this.multipleSelection.map(item => item.userId)
             })
-            if (res.resultCode !== 200) return this.$message.error('解除失败')
             this.$message.success('解除成功')
             this.getGuestList()
         }
@@ -93,10 +90,9 @@ export default {
         if (this.multipleSelection.length === 0) {
             this.$message.error('请选择多选项')
         } else {
-            const {data:res} = await this.$http.put('/users/1', {
+            await this.$http.guest.handleForbid({
                 ids: this.multipleSelection.map(item => item.userId)
             })
-            if (res.resultCode !== 200) return this.$message.error('禁用失败')
             this.$message.success('禁用成功')
             this.getGuestList()
         }

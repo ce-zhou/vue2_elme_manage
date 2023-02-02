@@ -1,7 +1,9 @@
+
 export default [
   {
     id: 1,
     authName: "首页配置",
+    icon: 'iconfont icon-setting',
     path: null,
     children: [
       {
@@ -29,6 +31,7 @@ export default [
   {
     id: 2,
     authName: "模块管理",
+    icon: 'iconfont icon-mokuaiguanli',
     path: null,
     children: [
       {
@@ -61,6 +64,7 @@ export default [
   {
     id: 3,
     authName: "系统管理",
+    icon: 'iconfont icon-xitong',
     path: null,
     children: [
       {
