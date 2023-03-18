@@ -66,10 +66,11 @@
 </template>
 
 <script>
-import AddIndexConfig from '../../components/AddIndexConfig.vue'
 export default {
   name: "IndexConfig",
-  components: {AddIndexConfig},
+  components: {
+    AddIndexConfig: ()=> import('../../components/AddIndexConfig.vue')
+  },
   data() {
     return {
       queryInfo: {

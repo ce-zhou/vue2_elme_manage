@@ -67,10 +67,11 @@
 </template>
 
 <script>
-import AddSwiper from "../../components/AddSwiper.vue";
 export default {
   name: "Swiper",
-  components: { AddSwiper },
+  components: { 
+    AddSwiper: ()=> import('../../components/AddSwiper.vue')
+   },
   data() {
     return {
       queryInfo: {

@@ -5,7 +5,7 @@
       <div class="head">
         <img src="../assets/img/elogo.png" alt="" />
         <div>
-          <span class="shop_font">外卖商城</span>
+          <span class="shop_font">嗨购商城</span>
           <span class="manage_font">vue2.0 后台管理系统</span>
         </div>
       </div>

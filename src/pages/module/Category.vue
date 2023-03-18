@@ -67,10 +67,11 @@
 </template>
 
 <script>
-import AddCategory from "@/components/AddCategory.vue";
 export default {
   name: "Category",
-  components: { AddCategory },
+  components: { 
+    AddCategory: ()=> import('../../components/AddCategory.vue')  
+  },
   data() {
     return {
       queryInfo: {
