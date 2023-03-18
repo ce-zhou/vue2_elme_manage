@@ -5,6 +5,7 @@ import router from './router'
 import './plugins/element'
 import api from './api/ajax/api'
 import './assets/css/global.css'
+import editor from "wangeditor";
 // 引入字体库
 import './assets/font/iconfont.css'
 Vue.config.productionTip = false
@@ -12,7 +13,7 @@ Vue.config.productionTip = false
 // 应用vue-router
 Vue.use(VueRouter)
 Vue.prototype.$http = api
-
+Vue.prototype.$editor = editor
 new Vue({
   render: h => h(App),
   // 全局事件总线

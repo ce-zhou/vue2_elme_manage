@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import editor from "wangeditor";
+// import editor from "wangeditor";
 export default {
   name: "AddGood",
   data() {
@@ -225,7 +225,7 @@ export default {
     },
   },
   mounted() {
-    const ed = new editor(this.$refs.editor);
+    const ed = new this.$editor(this.$refs.editor);
     this.ed = ed;
     ed.config.showLinkImg = false;
     ed.config.showLinkImgAlt = false;
